@@ -53,6 +53,16 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    body {
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+    * {
+      box-sizing: border-box; /* Ensure padding and borders are included in element width */
+    }
+    section {
+      max-width: 100vw; /* Prevent sections from exceeding viewport width */
+      overflow-x: hidden; /* Ensure no overflow within sections */
+    }
   </style>
 </head>
 
