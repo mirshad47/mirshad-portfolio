@@ -60,8 +60,15 @@
       box-sizing: border-box; /* Ensure padding and borders are included in element width */
     }
     section {
-      max-width: 100vw; /* Prevent sections from exceeding viewport width */
+      max-width: 100%; /* Prevent sections from exceeding viewport width */
       overflow-x: hidden; /* Ensure no overflow within sections */
+    }
+    .container {
+      max-width: 100%; /* Ensure containers do not exceed viewport width */
+    }
+    img {
+      max-width: 100%; /* Ensure images do not exceed their container width */
+      height: auto; /* Maintain aspect ratio */
     }
   </style>
 </head>
@@ -96,7 +103,7 @@
 <!-- Navbar End -->
 
 <!-- Hero Section Start -->
-<section class="flex flex-col justify-center items-center h-screen pt-20 bg-white dark:bg-gray-800 text-center px-4" data-aos="fade-up" data-aos-duration="1500" data-aos-easing="ease-in-out">
+<section class="flex flex-col justify-center items-center h-screen pt-20 bg-white dark:bg-gray-800 text-center px-4">
   <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Mirshad</h1>
   <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
     <span id="dynamic-text">Web Developer</span>
@@ -122,7 +129,7 @@
 <!-- Hero Section End -->
 
 <!-- About Section Start -->
-<section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="about" data-aos="fade-right" data-aos-duration="1200">
+<section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="about">
   <div class="max-w-4xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">About Me</h2>
     <p class="text-base md:text-lg text-gray-600 dark:text-gray-300">
@@ -133,7 +140,7 @@
 <!-- About Section End -->
 
 <!-- Skills Section Start -->
-<section class="py-20 bg-white dark:bg-gray-800 px-4" id="skills" data-aos="fade-left" data-aos-duration="1200">
+<section class="py-20 bg-white dark:bg-gray-800 px-4" id="skills">
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">My Skills</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -151,19 +158,19 @@
 <!-- Skills Section End -->
 
 <!-- Projects Section Start -->
-<section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="projects" data-aos="zoom-in" data-aos-duration="1200">
+<section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="projects">
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">My Projects</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300" data-aos="flip-left" data-aos-duration="1000">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300">
         <h3 class="text-2xl font-semibold mb-4 dark:text-white">Project One</h3>
         <p class="text-gray-600 dark:text-gray-300 ">Short project description goes here.</p>
       </div>
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300" data-aos="flip-left" data-aos-duration="1000">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300">
         <h3 class="text-2xl font-semibold mb-4 dark:text-white">Project Two</h3>
         <p class="text-gray-600 dark:text-gray-300">Short project description goes here.</p>
       </div>
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300" data-aos="flip-left" data-aos-duration="1000">
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300">
         <h3 class="text-2xl font-semibold mb-4 dark:text-white">Project Three</h3>
         <p class="text-gray-600 dark:text-gray-300">Short project description goes here.</p>
       </div>
@@ -173,7 +180,7 @@
 <!-- Projects Section End -->
 
 <!-- Testimonials Section Start -->
-<section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="testimonials" data-aos="fade-up" data-aos-duration="1200">
+<section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="testimonials">
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">Testimonials</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -198,7 +205,7 @@
 <!-- Testimonials Section End -->
 
 <!-- Contact Section Start -->
-<section class="py-20 bg-white dark:bg-gray-800 px-4" id="contact" data-aos="fade-up" data-aos-duration="1200">
+<section class="py-20 bg-white dark:bg-gray-800 px-4" id="contact">
   <div class="max-w-3xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Contact Me</h2>
     <p class="text-gray-600 dark:text-gray-300 mb-10">Feel free to reach out if you want to work together!</p>
@@ -244,9 +251,9 @@
 </button>
 
 <!-- Scripts Start -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init();
+  // Removed AOS initialization
+  // AOS.init();
 
   const toggleButton = document.getElementById('theme-toggle');
   const body = document.body;
