@@ -70,6 +70,12 @@
       max-width: 100%; /* Ensure images do not exceed their container width */
       height: auto; /* Maintain aspect ratio */
     }
+    /* Add hover effects for navigation icons */
+    nav a:hover {
+      color: #f97316; /* Change text color to orange */
+      transform: scale(1.1); /* Slightly enlarge the icon */
+      transition: all 0.3s ease-in-out; /* Smooth transition */
+    }
   </style>
 </head>
 
@@ -185,6 +191,58 @@
 </section>
 <!-- Projects Section End -->
 
+<!-- Resume Section Start -->
+<section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="resume">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">Resume</h2>
+    <div class="text-left bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4 dark:text-white">Mirshad Rahman</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">Social Media Certified</p>
+      <blockquote class="italic text-gray-600 dark:text-gray-300 mb-6">“It always seems impossible until it's done.”</blockquote>
+      <h4 class="text-xl font-semibold mb-2 dark:text-white">About Me</h4>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">Organized and dependable candidate successful at managing multiple priorities with a positive attitude. Resourceful at learning customer needs. Willingness to take on added responsibilities to meet team goals.</p>
+      <h4 class="text-xl font-semibold mb-2 dark:text-white">Skills</h4>
+      <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4">
+        <li>Communication</li>
+        <li>Multitasking</li>
+        <li>Teamwork</li>
+        <li>Management</li>
+      </ul>
+      <h4 class="text-xl font-semibold mb-2 dark:text-white">Education</h4>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">B.Sc in Computer Science and Engineering, University of South Asia (2022-2024)</p>
+      <h4 class="text-xl font-semibold mb-2 dark:text-white">Experience</h4>
+      <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4">
+        <li>Project Coordinator, SkyTech Solutions (2019-2021)</li>
+        <li>Social Media Manager, Digital Dareer (2018-2019)</li>
+      </ul>
+      <h4 class="text-xl font-semibold mb-2 dark:text-white">Certifications</h4>
+      <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4">
+        <li>Social Media Certified</li>
+        <li>Digital Marketing Certified</li>
+      </ul>
+      <h4 class="text-xl font-semibold mb-2 dark:text-white">Professional Skills</h4>
+      <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-4">
+        <li>Front-End Languages: HTML5, CSS3, JavaScript (ES6+)</li>
+        <li>Front-End Frameworks: Bootstrap, Tailwind CSS</li>
+        <li>Version Control: Git & GitHub</li>
+        <li>Responsive Web Design</li>
+        <li>Cross-Browser Compatibility</li>
+        <li>UI/UX Design Principles</li>
+      </ul>
+      <h4 class="text-xl font-semibold mb-2 dark:text-white">Software Skills</h4>
+      <ul class="list-disc list-inside text-gray-600 dark:text-gray-300">
+        <li>Word</li>
+        <li>Excel</li>
+        <li>Google Docs</li>
+        <li>Google Sheets</li>
+        <li>Linux</li>
+        <li>Technical support and troubleshooting</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- Resume Section End -->
+
 <!-- Testimonials Section Start -->
 <section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="testimonials">
   <div class="max-w-6xl mx-auto text-center">
@@ -212,17 +270,35 @@
 
 <!-- Contact Section Start -->
 <section class="py-20 bg-white dark:bg-gray-800 px-4" id="contact">
-  <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Contact Me</h2>
-    <p class="text-gray-600 dark:text-gray-300 mb-10">Feel free to reach out if you want to work together!</p>
-    <form action="https://formsubmit.co/mirshadrahman420@gmail.com" method="POST" class="space-y-6">
-      <input type="text" name="name" placeholder="Your Name" required class="w-full p-3 border rounded-lg">
-      <input type="email" name="email" placeholder="Your Email" required class="w-full p-3 border rounded-lg">
-      <textarea name="message" placeholder="Your Message" required class="w-full p-3 border rounded-lg h-32"></textarea>
-      <button type="submit" class="px-6 py-3 bg-orange-500 text-white rounded hover:bg-orange-600 transition">
-        Send Message
-      </button>
-    </form>
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center">Contact Me</h2>
+    <p class="text-gray-600 dark:text-gray-300 mb-10 text-center">Feel free to reach out if you want to work together!</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Contact Form -->
+      <form action="https://formsubmit.co/mirshadrahman420@gmail.com" method="POST" class="space-y-6">
+        <input type="text" name="name" placeholder="Your Name" required class="w-full p-3 border rounded-lg">
+        <input type="email" name="email" placeholder="Your Email" required class="w-full p-3 border rounded-lg">
+        <textarea name="message" placeholder="Your Message" required class="w-full p-3 border rounded-lg h-32"></textarea>
+        <button type="submit" class="px-6 py-3 bg-orange-500 text-white rounded hover:bg-orange-600 transition">
+          Send Message
+        </button>
+      </form>
+      <!-- Contact Details -->
+      <div class="space-y-6">
+        <div class="flex items-center">
+          <i class="fas fa-map-marker-alt text-orange-500 text-2xl mr-4"></i>
+          <p class="text-gray-600 dark:text-gray-300">Sector-10, road-10, house-11, Uttara, Dhaka</p>
+        </div>
+        <div class="flex items-center">
+          <i class="fas fa-envelope text-orange-500 text-2xl mr-4"></i>
+          <p class="text-gray-600 dark:text-gray-300">mirshadrahman420@gmail.com</p>
+        </div>
+        <div class="flex items-center">
+          <i class="fas fa-phone text-orange-500 text-2xl mr-4"></i>
+          <p class="text-gray-600 dark:text-gray-300">+8801753896629</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <!-- Contact Section End -->
