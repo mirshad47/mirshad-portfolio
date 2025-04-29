@@ -26,7 +26,7 @@
 
   <style>
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: smooth; /* Smooth scrolling enabled */
     }
     /* Preloader CSS */
     #preloader {
@@ -82,9 +82,9 @@
 <!-- Preloader End -->
 
 <!-- Navbar Start -->
-<header class="bg-white dark:bg-gray-800 shadow fixed w-full top-0 left-0 z-50">
+<header id="top" class="bg-white dark:bg-gray-800 shadow fixed w-full top-0 left-0 z-50">
   <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-    <div class="text-2xl font-bold text-gray-900 dark:text-white">Mirshad</div>
+    <a href="#top" class="text-2xl font-bold text-gray-900 dark:text-white">Mirshad</a>
     <!-- Hamburger Icon -->
     <button id="hamburger" class="text-2xl md:hidden text-gray-600 dark:text-gray-300 hover:text-orange-500 transition ml-auto" aria-label="Toggle navigation">
       ☰
@@ -332,6 +332,18 @@
 
   hamburger.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
+  });
+
+  // Smooth scrolling fallback for browsers that don't support CSS scroll-behavior
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   });
 </script>
 <!-- Scripts End -->
