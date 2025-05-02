@@ -76,6 +76,22 @@
       transform: scale(1.1); /* Slightly enlarge the icon */
       transition: all 0.3s ease-in-out; /* Smooth transition */
     }
+    /* Updated Hero Background for Light and Dark Modes */
+    .hero-background {
+      background: linear-gradient(180deg, #1f2f4d, #0f1e38); /* Default for dark mode */
+    }
+
+    body:not(.dark) .hero-background {
+      background: linear-gradient(180deg, #f3f4f6, #e5e7eb); /* Light mode background */
+    }
+
+    .hero-background::before {
+      content: none;
+    }
+
+    @keyframes waveAnimation {
+      /* Removed animation */
+    }
   </style>
 </head>
 
@@ -112,7 +128,7 @@
 <!-- Navbar End -->
 
 <!-- Hero Section Start -->
-<section class="flex flex-col justify-center items-center h-screen pt-20 bg-white dark:bg-gray-800 text-center px-4">
+<section class="hero-background flex flex-col justify-center items-center h-screen pt-20 text-center px-4">
   <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Mirshad</h1>
   <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
     <span id="dynamic-text">Web Developer</span>
