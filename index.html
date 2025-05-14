@@ -627,6 +627,12 @@
 
   window.addEventListener('resize', updateCarousel);
 
+  // Auto-scroll for Testimonials Carousel
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateCarousel();
+  }, 5000); // Auto-scroll every 5 seconds
+
   // JavaScript for Modal Functionality
   document.querySelectorAll('.certificate-image').forEach(image => {
     image.addEventListener('click', (e) => {
