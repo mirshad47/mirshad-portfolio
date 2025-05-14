@@ -650,6 +650,37 @@
     });
   });
 </script>
+
+<!-- Live Chat Integration with LinkedIn -->
+<script>
+  (function() {
+    var chatWidget = document.createElement('script');
+    chatWidget.src = 'https://cdn.jsdelivr.net/npm/@livechat/widget@1.0.0/livechat.min.js';
+    chatWidget.async = true;
+    chatWidget.onload = function() {
+      LiveChatWidget.init({
+        license: 'your-license-id', // Replace with your LiveChat license ID
+        group: 0
+      });
+
+      // Add LinkedIn button to the chat widget
+      LiveChatWidget.on('ready', function() {
+        LiveChatWidget.call('update_session_variables', {
+          linkedinProfile: 'https://www.linkedin.com/in/mirsad-rahman/'
+        });
+
+        LiveChatWidget.call('add_custom_button', {
+          id: 'linkedin-button',
+          text: 'Visit My LinkedIn',
+          action: function() {
+            window.open('https://www.linkedin.com/in/mirsad-rahman/', '_blank');
+          }
+        });
+      });
+    };
+    document.body.appendChild(chatWidget);
+  })();
+</script>
 <!-- Scripts End -->
 
 </body>
