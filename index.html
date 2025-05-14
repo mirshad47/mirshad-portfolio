@@ -126,6 +126,60 @@
       cursor: pointer;
       border-radius: 5px;
     }
+
+    /* Hover Effect for Experience Certificate Images */
+    .certificate-image {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .certificate-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Fix for Experience Certificate Image Cropping */
+    .certificate-image {
+      object-fit: contain; /* Ensures the entire image is visible without cropping */
+      height: auto; /* Adjusts height dynamically */
+      max-height: 200px; /* Limits the maximum height for consistency */
+    }
+
+    /* Adjusted Full View Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      color: black;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
   </style>
 </head>
 
@@ -300,27 +354,42 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <!-- Certificate 1 -->
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <img src="./Experience Certificate.png"Certificate 1" class="w-full h-40 object-cover rounded mb-4">
+        <img src="Experience Certificate.png" alt="Certificate 1" class="certificate-image w-full h-40 object-cover rounded mb-4" data-modal="modal1">
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Web Developer</h3>
         <p class="text-gray-600 dark:text-gray-300 mb-2">Company: TechCorp</p>
         <p class="text-gray-600 dark:text-gray-300 mb-2">Duration: Jan 2020 - Dec 2022</p>
         <p class="text-gray-600 dark:text-gray-300">"Successfully developed and maintained multiple web applications."</p>
       </div>
+      <!-- Modal for Certificate 1 -->
+      <div id="modal1" class="modal">
+        <img src="Experience Certificate.png" alt="Certificate 1">
+        <button class="modal-close">Close</button>
+      </div>
       <!-- Certificate 2 -->
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <img src="certificate2.png" alt="Certificate 2" class="w-full h-40 object-cover rounded mb-4">
+        <img src="certificate2.png" alt="Certificate 2" class="certificate-image w-full h-40 object-cover rounded mb-4" data-modal="modal2">
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Manager</h3>
         <p class="text-gray-600 dark:text-gray-300 mb-2">Company: WebSolutions</p>
         <p class="text-gray-600 dark:text-gray-300 mb-2">Duration: Jan 2018 - Dec 2019</p>
         <p class="text-gray-600 dark:text-gray-300">"Led a team of developers to deliver high-quality projects on time."</p>
       </div>
+      <!-- Modal for Certificate 2 -->
+      <div id="modal2" class="modal">
+        <img src="certificate2.png" alt="Certificate 2">
+        <button class="modal-close">Close</button>
+      </div>
       <!-- Certificate 3 -->
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <img src="certificate3.png" alt="Certificate 3" class="w-full h-40 object-cover rounded mb-4">
+        <img src="certificate3.png" alt="Certificate 3" class="certificate-image w-full h-40 object-cover rounded mb-4" data-modal="modal3">
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Freelance Designer</h3>
         <p class="text-gray-600 dark:text-gray-300 mb-2">Company: Self-Employed</p>
         <p class="text-gray-600 dark:text-gray-300 mb-2">Duration: Jan 2016 - Dec 2017</p>
         <p class="text-gray-600 dark:text-gray-300">"Designed and delivered creative solutions for various clients."</p>
+      </div>
+      <!-- Modal for Certificate 3 -->
+      <div id="modal3" class="modal">
+        <img src="certificate3.png" alt="Certificate 3">
+        <button class="modal-close">Close</button>
       </div>
     </div>
   </div>
@@ -557,6 +626,23 @@
   });
 
   window.addEventListener('resize', updateCarousel);
+
+  // JavaScript for Modal Functionality
+  document.querySelectorAll('.certificate-image').forEach(image => {
+    image.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modalId = image.getAttribute('data-modal');
+      const modal = document.getElementById(modalId);
+      modal.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.modal-close').forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = button.closest('.modal');
+      modal.classList.remove('active');
+    });
+  });
 </script>
 <!-- Scripts End -->
 
