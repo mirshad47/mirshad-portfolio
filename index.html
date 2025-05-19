@@ -737,24 +737,12 @@ body.high-contrast #backToTop {
 
 <!-- Scripts Start -->
 <script>
-  // Removed AOS initialization
-  // AOS.init();
+  // --- THEME & CONTRAST LOGIC CLEANUP ---
+  // Only use one localStorage key for high contrast
+  // Only use one event handler for high contrast
+  // Remove duplicate contrast logic
 
-  const toggleButton = document.getElementById('theme-toggle');
-  const body = document.body;
-  const backToTopButton = document.getElementById('backToTop');
-  const contrastToggle = document.getElementById('contrast-toggle');
-
-  // Update theme toggle icon
-  function updateToggleIcon() {
-    if (body.classList.contains('dark')) {
-      toggleButton.textContent = "☀️";
-    } else {
-      toggleButton.textContent = "🌙";
-    }
-  }
-
-  // Check saved theme
+  // Restore theme from localStorage
   if (localStorage.getItem('theme') === 'dark') {
     body.classList.add('dark');
   } else if (localStorage.getItem('theme') === 'light') {
@@ -778,144 +766,12 @@ body.high-contrast #backToTop {
     updateToggleIcon();
   });
 
-  // Contrast toggle functionality
-  contrastToggle.addEventListener('click', () => {
-    body.classList.toggle('high-contrast');
-    if (body.classList.contains('high-contrast')) {
-      localStorage.setItem('contrast', 'enabled');
-    } else {
-      localStorage.removeItem('contrast');
-    }
-  });
-
-  // Preloader
-  window.addEventListener('load', function() {
-    const preloader = document.getElementById('preloader');
-    preloader.style.display = 'none';
-  });
-
-  // Back to Top Button
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      backToTopButton.classList.remove('hidden');
-    } else {
-      backToTopButton.classList.add('hidden');
-    }
-  });
-
-  backToTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Dynamic Typing Effect
-  const dynamicText = document.getElementById('dynamic-text');
-  const words = ["Web Developer", "Freelancer", "Frontend Engineer"];
-  let wordIndex = 0;
-  setInterval(() => {
-    wordIndex = (wordIndex + 1) % words.length;
-    dynamicText.textContent = words[wordIndex];
-  }, 2000);
-
-  // Hamburger Menu Toggle
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  hamburger.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-
-  // Smooth scrolling fallback for browsers that don't support CSS scroll-behavior
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href').substring(1);
-      const target = document.getElementById(targetId);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // Testimonials Carousel Script
-  const track = document.querySelector('.carousel-track');
-  const items = Array.from(track.children);
-  const prevButton = document.getElementById('prevButton');
-  const nextButton = document.getElementById('nextButton');
-
-  let currentIndex = 0;
-
-  function updateCarousel() {
-    const width = items[0].getBoundingClientRect().width;
-    track.style.transform = `translateX(-${currentIndex * width}px)`;
-  }
-
-  nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % items.length;
-    updateCarousel();
-  });
-
-  prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + items.length) % items.length;
-    updateCarousel();
-  });
-
-  window.addEventListener('resize', updateCarousel);
-
-  // Auto-scroll for Testimonials Carousel
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % items.length;
-    updateCarousel();
-  }, 5000); // Auto-scroll every 5 seconds
-
-  // JavaScript for Modal Functionality (Certificates)
-  document.querySelectorAll('.certificate-image').forEach(image => {
-    image.addEventListener('click', (e) => {
-      e.preventDefault();
-      const modalId = image.getAttribute('data-modal');
-      const modal = document.getElementById(modalId);
-      modal.classList.add('active');
-    });
-  });
-
-  document.querySelectorAll('.modal-close').forEach(button => {
-    button.addEventListener('click', () => {
-      const modal = button.closest('.modal');
-      modal.classList.remove('active');
-    });
-  });
-
-  // Modal functionality for project details
-  const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
-  const modals = document.querySelectorAll('.modal');
-  const closeBtns = document.querySelectorAll('.modal-close');
-
-  viewDetailsBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const modalId = this.getAttribute('data-modal');
-      document.getElementById(modalId).classList.add('active');
-    });
-  });
-
-  closeBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      this.closest('.modal').classList.remove('active');
-    });
-  });
-
-  window.addEventListener('click', function(e) {
-    modals.forEach(modal => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-      }
-    });
-  });
-
-  // Accessibility: High Contrast Mode Toggle
-  var contrastToggleBtn = document.getElementById('contrast-toggle');
+  // High Contrast Toggle (single source of truth)
+  const contrastToggleBtn = document.getElementById('contrast-toggle');
   if (contrastToggleBtn) {
     contrastToggleBtn.addEventListener('click', function() {
-      document.body.classList.toggle('high-contrast');
-      localStorage.setItem('highContrast', document.body.classList.contains('high-contrast') ? '1' : '0');
+      body.classList.toggle('high-contrast');
+      localStorage.setItem('highContrast', body.classList.contains('high-contrast') ? '1' : '0');
     });
     contrastToggleBtn.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -926,8 +782,127 @@ body.high-contrast #backToTop {
   }
   // Restore high contrast mode from localStorage
   if (localStorage.getItem('highContrast') === '1') {
-    document.body.classList.add('high-contrast');
+    body.classList.add('high-contrast');
   }
+
+  // Preloader
+  window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) preloader.style.display = 'none';
+  });
+
+  // Back to Top Button
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      backToTopButton.classList.remove('hidden');
+    } else {
+      backToTopButton.classList.add('hidden');
+    }
+  });
+  if (backToTopButton) {
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Dynamic Typing Effect
+  const dynamicText = document.getElementById('dynamic-text');
+  const words = ["Web Developer", "Freelancer", "Frontend Engineer"];
+  let wordIndex = 0;
+  if (dynamicText) {
+    setInterval(() => {
+      wordIndex = (wordIndex + 1) % words.length;
+      dynamicText.textContent = words[wordIndex];
+    }, 2000);
+  }
+
+  // Hamburger Menu Toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+  // Smooth scrolling fallback for browsers that don't support CSS scroll-behavior
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href').substring(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Testimonials Carousel Script
+  const track = document.querySelector('.carousel-track');
+  const items = track ? Array.from(track.children) : [];
+  const prevButton = document.getElementById('prevButton');
+  const nextButton = document.getElementById('nextButton');
+  let currentIndex = 0;
+  function updateCarousel() {
+    if (!track || items.length === 0) return;
+    const width = items[0].getBoundingClientRect().width;
+    track.style.transform = `translateX(-${currentIndex * width}px)`;
+  }
+  if (nextButton) nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateCarousel();
+  });
+  if (prevButton) prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    updateCarousel();
+  });
+  window.addEventListener('resize', updateCarousel);
+  setInterval(() => {
+    if (items.length > 0) {
+      currentIndex = (currentIndex + 1) % items.length;
+      updateCarousel();
+    }
+  }, 5000);
+
+  // JavaScript for Modal Functionality (Certificates)
+  document.querySelectorAll('.certificate-image').forEach(image => {
+    image.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modalId = image.getAttribute('data-modal');
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.modal-close').forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = button.closest('.modal');
+      if (modal) modal.classList.remove('active');
+    });
+  });
+  // Modal functionality for project details
+  const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
+  const modals = document.querySelectorAll('.modal');
+  const closeBtns = document.querySelectorAll('.modal-close');
+  viewDetailsBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const modalId = this.getAttribute('data-modal');
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('active');
+    });
+  });
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const modal = this.closest('.modal');
+      if (modal) modal.classList.remove('active');
+    });
+  });
+  window.addEventListener('click', function(e) {
+    modals.forEach(modal => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  });
 
   // Accessibility: Focus outlines for keyboard users
   document.body.addEventListener('keydown', function(e) {
@@ -938,37 +913,6 @@ body.high-contrast #backToTop {
   document.body.addEventListener('mousedown', function() {
     document.body.classList.remove('user-is-tabbing');
   });
-</script>
-
-<!-- Live Chat Integration with LinkedIn -->
-<script>
-  (function() {
-    var chatWidget = document.createElement('script');
-    chatWidget.src = 'https://cdn.jsdelivr.net/npm/@livechat/widget@1.0.0/livechat.min.js';
-    chatWidget.async = true;
-    chatWidget.onload = function() {
-      LiveChatWidget.init({
-        license: 'your-license-id', // Replace with your LiveChat license ID
-        group: 0
-      });
-
-      // Add LinkedIn button to the chat widget
-      LiveChatWidget.on('ready', function() {
-        LiveChatWidget.call('update_session_variables', {
-          linkedinProfile: 'https://www.linkedin.com/in/mirsad-rahman/'
-        });
-
-        LiveChatWidget.call('add_custom_button', {
-          id: 'linkedin-button',
-          text: 'Visit My LinkedIn',
-          action: function() {
-            window.open('https://www.linkedin.com/in/mirsad-rahman/', '_blank');
-          }
-        });
-      });
-    };
-    document.body.appendChild(chatWidget);
-  })();
 </script>
 <!-- Scripts End -->
 
