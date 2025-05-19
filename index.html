@@ -180,6 +180,28 @@
       border-radius: 5px;
       font-size: 1rem;
     }
+
+    /* LinkedIn Floating Button Styles */
+    #linkedin-float-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      z-index: 9999;
+      background: #0A66C2;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 50%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      transition: background 0.2s;
+    }
+
+    #linkedin-float-btn:hover {
+      background: #004182;
+    }
   </style>
 </head>
 
@@ -682,6 +704,12 @@
   })();
 </script>
 <!-- Scripts End -->
+
+<!-- LinkedIn Button Floating -->
+<a href="https://www.linkedin.com/in/mirsad-rahman/" target="_blank" id="linkedin-float-btn" title="Visit my LinkedIn"
+   style="position:fixed;bottom:80px;right:18px;z-index:9999;background:#0A66C2;color:#fff;padding:10px 12px;border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:background 0.2s;">
+  <i class="fab fa-linkedin"></i>
+</a>
 
 </body>
 </html>
