@@ -251,6 +251,79 @@
       transform: scale(1.2) rotate(-8deg);
       filter: drop-shadow(0 4px 12px #f97316aa);
     }
+
+    /* Parallax Section Styles */
+.parallax-section {
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .parallax-section {
+    background-attachment: scroll;
+  }
+}
+
+.parallax-content {
+  background: rgba(255,255,255,0.7);
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+/* High Contrast Mode Styles */
+body.high-contrast {
+  background: #000 !important;
+  color: #fff !important;
+}
+body.high-contrast a,
+body.high-contrast button,
+body.high-contrast input,
+body.high-contrast textarea {
+  background: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+body.high-contrast .parallax-content,
+body.high-contrast .bg-white,
+body.high-contrast .bg-gray-100,
+body.high-contrast .bg-gray-800,
+body.high-contrast .bg-gray-900 {
+  background: #000 !important;
+  color: #fff !important;
+}
+body.high-contrast .carousel-button {
+  background: #fff !important;
+  color: #000 !important;
+}
+body.high-contrast .modal {
+  background: #000 !important;
+}
+body.high-contrast .modal img {
+  border: 2px solid #fff !important;
+}
+body.high-contrast #linkedin-float-btn {
+  background: #fff !important;
+  color: #000 !important;
+}
+body.high-contrast #backToTop {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* Focus outline for keyboard navigation */
+.user-is-tabbing :focus {
+  outline: 2px solid #f97316 !important;
+  outline-offset: 2px;
+}
   </style>
 </head>
 
@@ -311,6 +384,15 @@
   </div>
 </section>
 <!-- Hero Section End -->
+
+<!-- Parallax Section Start -->
+<section class="parallax-section" style="background-image: url('Experience Certificate.png');">
+  <div class="parallax-content">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Parallax Experience</h2>
+    <p class="text-lg text-gray-700">This section uses a parallax scrolling effect for a modern, dynamic look. You can use this area to highlight achievements, a call-to-action, or anything you want to stand out!</p>
+  </div>
+</section>
+<!-- Parallax Section End -->
 
 <!-- About Section Start -->
 <section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="about">
@@ -648,6 +730,11 @@
   ↑
 </button>
 
+<!-- High Contrast Toggle Button -->
+<button id="contrast-toggle" class="fixed bottom-6 left-6 bg-black text-white p-3 rounded-full shadow-lg z-50" aria-label="Toggle high contrast mode" title="Toggle high contrast mode" tabindex="0">
+  <span aria-hidden="true">🌓</span>
+</button>
+
 <!-- Scripts Start -->
 <script>
   // Removed AOS initialization
@@ -656,6 +743,7 @@
   const toggleButton = document.getElementById('theme-toggle');
   const body = document.body;
   const backToTopButton = document.getElementById('backToTop');
+  const contrastToggle = document.getElementById('contrast-toggle');
 
   // Update theme toggle icon
   function updateToggleIcon() {
@@ -688,6 +776,16 @@
       localStorage.setItem('theme', 'light');
     }
     updateToggleIcon();
+  });
+
+  // Contrast toggle functionality
+  contrastToggle.addEventListener('click', () => {
+    body.classList.toggle('high-contrast');
+    if (body.classList.contains('high-contrast')) {
+      localStorage.setItem('contrast', 'enabled');
+    } else {
+      localStorage.removeItem('contrast');
+    }
   });
 
   // Preloader
@@ -810,6 +908,35 @@
         modal.classList.remove('active');
       }
     });
+  });
+
+  // Accessibility: High Contrast Mode Toggle
+  var contrastToggleBtn = document.getElementById('contrast-toggle');
+  if (contrastToggleBtn) {
+    contrastToggleBtn.addEventListener('click', function() {
+      document.body.classList.toggle('high-contrast');
+      localStorage.setItem('highContrast', document.body.classList.contains('high-contrast') ? '1' : '0');
+    });
+    contrastToggleBtn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        contrastToggleBtn.click();
+      }
+    });
+  }
+  // Restore high contrast mode from localStorage
+  if (localStorage.getItem('highContrast') === '1') {
+    document.body.classList.add('high-contrast');
+  }
+
+  // Accessibility: Focus outlines for keyboard users
+  document.body.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+      document.body.classList.add('user-is-tabbing');
+    }
+  });
+  document.body.addEventListener('mousedown', function() {
+    document.body.classList.remove('user-is-tabbing');
   });
 </script>
 
