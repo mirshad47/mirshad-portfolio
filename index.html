@@ -220,6 +220,29 @@
     .modal.active {
       display: flex;
     }
+
+    /* Animation for Skill Icons */
+    .animated-icon {
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Animated SVG Icon Styles */
+    .animated-icon {
+      transition: transform 0.3s, filter 0.3s;
+    }
+    .animated-icon:hover {
+      transform: scale(1.2) rotate(-8deg);
+      filter: drop-shadow(0 4px 12px #f97316aa);
+    }
   </style>
 </head>
 
@@ -300,14 +323,35 @@
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">My Skills</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">HTML</div>
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">CSS</div>
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">Bootstrap</div>
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">Tailwind CSS</div>
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">JavaScript</div>
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">React.js</div>
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">Git & GitHub</div>
-      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white">Figma</div>
+      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white flex flex-col items-center">
+        <svg class="w-12 h-12 mb-2 animated-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 3L6.6 42.6L24 47L41.4 42.6L39 3H9Z" fill="#E44D26"/>
+          <path d="M24 5.7V43.1L38.1 39.5L40.2 5.7H24Z" fill="#F16529"/>
+          <path d="M24 13.6H34.1L33.8 17.2H24V13.6ZM24 21.1H33.5L33.2 24.7H24V21.1ZM24 28.6H33L32.7 32.2L24 34.5V28.6Z" fill="#EBEBEB"/>
+          <path d="M24 13.6V17.2H13.9L14.2 13.6H24ZM24 21.1V24.7H14.5L14.8 21.1H24ZM24 28.6V34.5L15.3 32.2L15 28.6H24Z" fill="#fff"/>
+        </svg>
+        HTML
+      </div>
+      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white flex flex-col items-center">
+        <svg class="w-12 h-12 mb-2 animated-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#1572B6"/>
+          <path d="M24 39L10.5 35.2L8 8H40L37.5 35.2L24 39Z" fill="#33A9DC"/>
+          <path d="M24 11.2V35.2L34.5 32.2L36.5 11.2H24Z" fill="#fff"/>
+        </svg>
+        CSS
+      </div>
+      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white flex flex-col items-center">
+        <svg class="w-12 h-12 mb-2 animated-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="22" fill="#F7DF1E" stroke="#000" stroke-width="2"/>
+          <path d="M19 34L17 32C17 32 19.5 29.5 23 29.5C26.5 29.5 29 32 29 32L27 34C27 34 25.5 32.5 23 32.5C20.5 32.5 19 34 19 34Z" fill="#000"/>
+          <rect x="21" y="16" width="6" height="10" rx="3" fill="#000"/>
+        </svg>
+        JavaScript
+      </div>
+      <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md dark:text-white flex flex-col items-center">
+        <i class="fab fa-react text-4xl mb-2 text-blue-400 animated-icon"></i>
+        React.js
+      </div>
     </div>
   </div>
 </section>
