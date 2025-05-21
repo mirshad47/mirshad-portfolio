@@ -746,17 +746,10 @@ body.high-contrast #backToTop {
   ↑
 </button>
 
-<!-- High Contrast Toggle Button -->
-<button id="contrast-toggle" class="fixed bottom-6 left-6 bg-black text-white p-3 rounded-full shadow-lg z-50" aria-label="Toggle high contrast mode" title="Toggle high contrast mode" tabindex="0">
-  <span aria-hidden="true">🌓</span>
-</button>
-
 <!-- Scripts Start -->
 <script>
-  // --- THEME & CONTRAST LOGIC CLEANUP ---
-  // Only use one localStorage key for high contrast
-  // Only use one event handler for high contrast
-  // Remove duplicate contrast logic
+  // --- THEME LOGIC CLEANUP ---
+  // Only use one localStorage key for theme
 
   // Define body and toggleButton before use
   const body = document.body;
@@ -797,31 +790,6 @@ body.high-contrast #backToTop {
       updateToggleIcon();
     });
   }
-
-  // High Contrast Toggle (single source of truth)
-  const contrastToggleBtn = document.getElementById('contrast-toggle');
-  if (contrastToggleBtn) {
-    contrastToggleBtn.addEventListener('click', function() {
-      body.classList.toggle('high-contrast');
-      localStorage.setItem('highContrast', body.classList.contains('high-contrast') ? '1' : '0');
-    });
-    contrastToggleBtn.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        contrastToggleBtn.click();
-      }
-    });
-  }
-  // Restore high contrast mode from localStorage
-  if (localStorage.getItem('highContrast') === '1') {
-    body.classList.add('high-contrast');
-  }
-
-  // Preloader
-  window.addEventListener('load', function() {
-    const preloader = document.getElementById('preloader');
-    if (preloader) preloader.style.display = 'none';
-  });
 
   // Back to Top Button
   window.addEventListener('scroll', () => {
