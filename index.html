@@ -758,6 +758,10 @@ body.high-contrast #backToTop {
   // Only use one event handler for high contrast
   // Remove duplicate contrast logic
 
+  // Define body and toggleButton before use
+  const body = document.body;
+  const toggleButton = document.getElementById('theme-toggle');
+
   // Restore theme from localStorage
   if (localStorage.getItem('theme') === 'dark') {
     body.classList.add('dark');
@@ -772,15 +776,17 @@ body.high-contrast #backToTop {
   updateToggleIcon();
 
   // Toggle theme on button click
-  toggleButton.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    if (body.classList.contains('dark')) {
-      localStorage.setItem('theme', 'dark');
-    } else {
-      localStorage.setItem('theme', 'light');
-    }
-    updateToggleIcon();
-  });
+  if (toggleButton) {
+    toggleButton.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if (body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+      updateToggleIcon();
+    });
+  }
 
   // High Contrast Toggle (single source of truth)
   const contrastToggleBtn = document.getElementById('contrast-toggle');
