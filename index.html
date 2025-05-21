@@ -751,168 +751,182 @@ body.high-contrast #backToTop {
   // --- THEME LOGIC CLEANUP ---
   // Only use one localStorage key for theme
 
-  // Define body and toggleButton before use
-  const body = document.body;
-  const toggleButton = document.getElementById('theme-toggle');
-  const backToTopButton = document.getElementById('backToTop');
-
-  // Define updateToggleIcon to prevent JS error and update the icon
-  function updateToggleIcon() {
-    if (!toggleButton) return;
-    if (body.classList.contains('dark')) {
-      toggleButton.textContent = '☀️'; // Sun for dark mode
-    } else {
-      toggleButton.textContent = '🌙'; // Moon for light mode
+  // Wait for DOMContentLoaded to ensure all elements are present
+  window.addEventListener('DOMContentLoaded', function() {
+    // Preloader logic
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      window.addEventListener('load', function() {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 400);
+      });
     }
-  }
 
-  // Restore theme from localStorage
-  if (localStorage.getItem('theme') === 'dark') {
-    body.classList.add('dark');
-  } else if (localStorage.getItem('theme') === 'light') {
-    body.classList.remove('dark');
-  } else {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      body.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-  }
-  updateToggleIcon();
+    // Define body and toggleButton before use
+    const body = document.body;
+    const toggleButton = document.getElementById('theme-toggle');
+    const backToTopButton = document.getElementById('backToTop');
 
-  // Toggle theme on button click
-  if (toggleButton) {
-    toggleButton.addEventListener('click', () => {
-      body.classList.toggle('dark');
+    // Define updateToggleIcon to prevent JS error and update the icon
+    function updateToggleIcon() {
+      if (!toggleButton) return;
       if (body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = '☀️'; // Sun for dark mode
       } else {
-        localStorage.setItem('theme', 'light');
+        toggleButton.textContent = '🌙'; // Moon for light mode
       }
-      updateToggleIcon();
-    });
-  }
-
-  // Back to Top Button
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      backToTopButton.classList.remove('hidden');
-    } else {
-      backToTopButton.classList.add('hidden');
     }
-  });
-  if (backToTopButton) {
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
 
-  // Dynamic Typing Effect
-  const dynamicText = document.getElementById('dynamic-text');
-  const words = ["Web Developer", "Freelancer", "Frontend Engineer"];
-  let wordIndex = 0;
-  if (dynamicText) {
-    setInterval(() => {
-      wordIndex = (wordIndex + 1) % words.length;
-      dynamicText.textContent = words[wordIndex];
-    }, 2000);
-  }
+    // Restore theme from localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+    } else if (localStorage.getItem('theme') === 'light') {
+      body.classList.remove('dark');
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    updateToggleIcon();
 
-  // Hamburger Menu Toggle
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  }
+    // Toggle theme on button click
+    if (toggleButton) {
+      toggleButton.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        if (body.classList.contains('dark')) {
+          localStorage.setItem('theme', 'dark');
+        } else {
+          localStorage.setItem('theme', 'light');
+        }
+        updateToggleIcon();
+      });
+    }
 
-  // Smooth scrolling fallback for browsers that don't support CSS scroll-behavior
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href').substring(1);
-      const target = document.getElementById(targetId);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
+    // Back to Top Button
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.remove('hidden');
+      } else {
+        backToTopButton.classList.add('hidden');
       }
     });
-  });
+    if (backToTopButton) {
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
 
-  // Testimonials Carousel Script
-  const track = document.querySelector('.carousel-track');
-  const items = track ? Array.from(track.children) : [];
-  const prevButton = document.getElementById('prevButton');
-  const nextButton = document.getElementById('nextButton');
-  let currentIndex = 0;
-  function updateCarousel() {
-    if (!track || items.length === 0) return;
-    const width = items[0].getBoundingClientRect().width;
-    track.style.transform = `translateX(-${currentIndex * width}px)`;
-  }
-  if (nextButton) nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % items.length;
-    updateCarousel();
-  });
-  if (prevButton) prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + items.length) % items.length;
-    updateCarousel();
-  });
-  window.addEventListener('resize', updateCarousel);
-  setInterval(() => {
-    if (items.length > 0) {
+    // Dynamic Typing Effect
+    const dynamicText = document.getElementById('dynamic-text');
+    const words = ["Web Developer", "Freelancer", "Frontend Engineer"];
+    let wordIndex = 0;
+    if (dynamicText) {
+      setInterval(() => {
+        wordIndex = (wordIndex + 1) % words.length;
+        dynamicText.textContent = words[wordIndex];
+      }, 2000);
+    }
+
+    // Hamburger Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Smooth scrolling fallback for browsers that don't support CSS scroll-behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Testimonials Carousel Script
+    const track = document.querySelector('.carousel-track');
+    const items = track ? Array.from(track.children) : [];
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    let currentIndex = 0;
+    function updateCarousel() {
+      if (!track || items.length === 0) return;
+      const width = items[0].getBoundingClientRect().width;
+      track.style.transform = `translateX(-${currentIndex * width}px)`;
+    }
+    if (nextButton) nextButton.addEventListener('click', () => {
       currentIndex = (currentIndex + 1) % items.length;
       updateCarousel();
-    }
-  }, 5000);
+    });
+    if (prevButton) prevButton.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      updateCarousel();
+    });
+    window.addEventListener('resize', updateCarousel);
+    setInterval(() => {
+      if (items.length > 0) {
+        currentIndex = (currentIndex + 1) % items.length;
+        updateCarousel();
+      }
+    }, 5000);
 
-  // JavaScript for Modal Functionality (Certificates)
-  document.querySelectorAll('.certificate-image').forEach(image => {
-    image.addEventListener('click', (e) => {
-      e.preventDefault();
-      const modalId = image.getAttribute('data-modal');
-      const modal = document.getElementById(modalId);
-      if (modal) modal.classList.add('active');
+    // JavaScript for Modal Functionality (Certificates)
+    document.querySelectorAll('.certificate-image').forEach(image => {
+      image.addEventListener('click', (e) => {
+        e.preventDefault();
+        const modalId = image.getAttribute('data-modal');
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add('active');
+      });
     });
-  });
-  document.querySelectorAll('.modal-close').forEach(button => {
-    button.addEventListener('click', () => {
-      const modal = button.closest('.modal');
-      if (modal) modal.classList.remove('active');
+    document.querySelectorAll('.modal-close').forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = button.closest('.modal');
+        if (modal) modal.classList.remove('active');
+      });
     });
-  });
-  // Modal functionality for project details
-  const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
-  const modals = document.querySelectorAll('.modal');
-  const closeBtns = document.querySelectorAll('.modal-close');
-  viewDetailsBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const modalId = this.getAttribute('data-modal');
-      const modal = document.getElementById(modalId);
-      if (modal) modal.classList.add('active');
+    // Modal functionality for project details
+    const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
+    const modals = document.querySelectorAll('.modal');
+    const closeBtns = document.querySelectorAll('.modal-close');
+    viewDetailsBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const modalId = this.getAttribute('data-modal');
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add('active');
+      });
     });
-  });
-  closeBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const modal = this.closest('.modal');
-      if (modal) modal.classList.remove('active');
+    closeBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const modal = this.closest('.modal');
+        if (modal) modal.classList.remove('active');
+      });
     });
-  });
-  window.addEventListener('click', function(e) {
-    modals.forEach(modal => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
+    window.addEventListener('click', function(e) {
+      modals.forEach(modal => {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+    });
+
+    // Accessibility: Focus outlines for keyboard users
+    document.body.addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        document.body.classList.add('user-is-tabbing');
       }
     });
-  });
-
-  // Accessibility: Focus outlines for keyboard users
-  document.body.addEventListener('keydown', function(e) {
-    if (e.key === 'Tab') {
-      document.body.classList.add('user-is-tabbing');
-    }
-  });
-  document.body.addEventListener('mousedown', function() {
-    document.body.classList.remove('user-is-tabbing');
+    document.body.addEventListener('mousedown', function() {
+      document.body.classList.remove('user-is-tabbing');
+    });
   });
 </script>
 <!-- Scripts End -->
