@@ -762,6 +762,16 @@ body.high-contrast #backToTop {
   const body = document.body;
   const toggleButton = document.getElementById('theme-toggle');
 
+  // Define updateToggleIcon to prevent JS error and update the icon
+  function updateToggleIcon() {
+    if (!toggleButton) return;
+    if (body.classList.contains('dark')) {
+      toggleButton.textContent = '☀️'; // Sun for dark mode
+    } else {
+      toggleButton.textContent = '🌙'; // Moon for light mode
+    }
+  }
+
   // Restore theme from localStorage
   if (localStorage.getItem('theme') === 'dark') {
     body.classList.add('dark');
