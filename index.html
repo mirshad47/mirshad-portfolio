@@ -437,7 +437,10 @@
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300">
         <h3 class="text-2xl font-semibold mb-4 dark:text-white">Project One</h3>
         <p class="text-gray-600 dark:text-gray-300 ">Short project description goes here.</p>
-        <button class="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="project1-modal">View Details</button>
+        <div class="flex gap-2 mt-4">
+          <button class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="project1-modal">View Details</button>
+          <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded hover:bg-orange-400 transition view-screenshot-btn" data-img="Screenshot (9).png" data-title="maxFlix Production">View Screenshot</button>
+        </div>
       </div>
       <!-- Modal for Project One -->
       <div id="project1-modal" class="modal">
@@ -457,7 +460,10 @@
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300">
         <h3 class="text-2xl font-semibold mb-4 dark:text-white">Project Two</h3>
         <p class="text-gray-600 dark:text-gray-300">Short project description goes here.</p>
-        <button class="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="project2-modal">View Details</button>
+        <div class="flex gap-2 mt-4">
+          <button class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="project2-modal">View Details</button>
+          <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded hover:bg-orange-400 transition view-screenshot-btn" data-img="Screenshot (9).png" data-title="Project Two">View Screenshot</button>
+        </div>
       </div>
       <!-- Modal for Project Two -->
       <div id="project2-modal" class="modal">
@@ -476,7 +482,10 @@
       <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition duration-300">
         <h3 class="text-2xl font-semibold mb-4 dark:text-white">Project Three</h3>
         <p class="text-gray-600 dark:text-gray-300">Short project description goes here.</p>
-        <button class="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="project3-modal">View Details</button>
+        <div class="flex gap-2 mt-4">
+          <button class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="project3-modal">View Details</button>
+          <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded hover:bg-orange-400 transition view-screenshot-btn" data-img="Screenshot (9).png" data-title="Project Three">View Screenshot</button>
+        </div>
       </div>
       <!-- Modal for Project Three -->
       <div id="project3-modal" class="modal">
@@ -496,7 +505,10 @@
         <img src="./Screenshot (9).png" alt="Tea House Thumbnail" class="w-full h-40 object-fit rounded mb-4">
         <h3 class="text-2xl font-semibold mb-4 dark:text-white">Tea House</h3>
         <p class="text-gray-600 dark:text-gray-300">A modern tea shop website built with HTML, CSS, and JavaScript. Features a beautiful UI, responsive design, and interactive elements.</p>
-        <button class="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="teahouse-modal">View Details</button>
+        <div class="flex gap-2 mt-4">
+          <button class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition view-details-btn" data-modal="teahouse-modal">View Details</button>
+          <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded hover:bg-orange-400 transition view-screenshot-btn" data-img="Screenshot (9).png" data-title="Tea House">View Screenshot</button>
+        </div>
       </div>
       <!-- Modal for Tea House Project -->
       <div id="teahouse-modal" class="modal">
@@ -511,6 +523,14 @@
           </ul>
           <a href="https://mirshad47.github.io/Tea-House/" class="text-orange-500 hover:underline" target="_blank">View Live</a>
         </div>
+      </div>
+    </div>
+    <!-- Lightbox Modal for Project Screenshots -->
+    <div id="lightbox-modal" class="modal" tabindex="-1" aria-modal="true" role="dialog">
+      <div class="relative flex flex-col items-center justify-center w-full h-full">
+        <button class="modal-close absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full px-4 py-2 text-2xl">&times;</button>
+        <img id="lightbox-img" src="" alt="Project Screenshot" class="max-w-full max-h-[80vh] rounded shadow-lg border-4 border-orange-400 bg-white dark:bg-gray-800">
+        <div id="lightbox-title" class="mt-4 text-xl font-semibold text-gray-900 dark:text-white"></div>
       </div>
     </div>
   </div>
@@ -904,6 +924,36 @@
         }
       });
     });
+
+    // Lightbox for Project Screenshots
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    document.querySelectorAll('.view-screenshot-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const imgSrc = this.getAttribute('data-img');
+        const title = this.getAttribute('data-title');
+        if (lightboxImg && lightboxModal) {
+          lightboxImg.src = imgSrc;
+          lightboxImg.alt = title + ' Screenshot';
+          if (lightboxTitle) lightboxTitle.textContent = title;
+          lightboxModal.classList.add('active');
+        }
+      });
+    });
+    if (lightboxModal) {
+      lightboxModal.querySelector('.modal-close').addEventListener('click', function() {
+        lightboxModal.classList.remove('active');
+        if (lightboxImg) lightboxImg.src = '';
+      });
+      // Close on outside click
+      lightboxModal.addEventListener('click', function(e) {
+        if (e.target === lightboxModal) {
+          lightboxModal.classList.remove('active');
+          if (lightboxImg) lightboxImg.src = '';
+        }
+      });
+    }
 
     // Accessibility: Focus outlines for keyboard users
     document.body.addEventListener('keydown', function(e) {
