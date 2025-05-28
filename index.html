@@ -663,6 +663,7 @@
 <section class="py-20 bg-gray-100 dark:bg-gray-900 px-4" id="testimonials">
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">Testimonials</h2>
+    <button id="openTestimonialForm" class="mb-6 px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition">Submit Testimonial</button>
     <div class="carousel">
       <div class="carousel-track">
         <div class="carousel-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
@@ -684,6 +685,22 @@
       <div class="carousel-controls">
         <button class="carousel-button" id="prevButton">&#10094;</button>
         <button class="carousel-button" id="nextButton">&#10095;</button>
+      </div>
+    </div>
+
+    <!-- Testimonial Submission Modal -->
+    <div id="testimonialFormModal" class="modal" tabindex="-1" aria-modal="true" role="dialog">
+      <div class="relative bg-white dark:bg-gray-800 p-8 rounded-lg max-w-md w-full flex flex-col items-center">
+        <button class="modal-close absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full px-4 py-2 text-2xl">&times;</button>
+        <h3 class="text-2xl font-bold mb-4 dark:text-white">Submit a Testimonial</h3>
+        <form action="https://formsubmit.co/mirshadrahman420@gmail.com" method="POST" class="w-full flex flex-col gap-4">
+          <input type="hidden" name="_subject" value="New Testimonial Submission">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="name" placeholder="Your Name" required class="w-full p-3 border rounded-lg">
+          <input type="text" name="role" placeholder="Your Role/Company" required class="w-full p-3 border rounded-lg">
+          <textarea name="testimonial" placeholder="Your Testimonial" required class="w-full p-3 border rounded-lg h-32"></textarea>
+          <button type="submit" class="px-6 py-3 bg-orange-500 text-white rounded hover:bg-orange-600 transition">Send Testimonial</button>
+        </form>
       </div>
     </div>
   </div>
@@ -964,6 +981,23 @@
     document.body.addEventListener('mousedown', function() {
       document.body.classList.remove('user-is-tabbing');
     });
+
+    // Open testimonial form modal
+    const openTestimonialForm = document.getElementById('openTestimonialForm');
+    const testimonialFormModal = document.getElementById('testimonialFormModal');
+    if (openTestimonialForm && testimonialFormModal) {
+      openTestimonialForm.addEventListener('click', function() {
+        testimonialFormModal.classList.add('active');
+      });
+      testimonialFormModal.querySelector('.modal-close').addEventListener('click', function() {
+        testimonialFormModal.classList.remove('active');
+      });
+      testimonialFormModal.addEventListener('click', function(e) {
+        if (e.target === testimonialFormModal) {
+          testimonialFormModal.classList.remove('active');
+        }
+      });
+    }
   });
 </script>
 <!-- Scripts End -->
