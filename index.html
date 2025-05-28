@@ -300,6 +300,14 @@
   outline: 2px solid #f97316 !important;
   outline-offset: 2px;
 }
+
+@keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .animate-blink {
+      animation: blink 1s steps(1) infinite;
+    }
   </style>
 </head>
 
@@ -339,7 +347,7 @@
 <section class="hero-background flex flex-col justify-center items-center h-screen pt-20 text-center px-4" aria-label="Hero">
   <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Mirshad</h1>
   <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
-    <span id="dynamic-text" aria-live="polite">Web Developer</span>
+    <span id="dynamic-text" aria-live="polite" class="inline-block"></span><span id="typing-cursor" class="inline-block text-orange-500 text-2xl align-middle ml-1 animate-blink">|</span>
   </p>
   <a href="#projects" class="px-6 py-3 bg-orange-500 text-white rounded hover:bg-orange-600 transition" aria-label="See My Work">See My Work</a>
 
@@ -843,15 +851,43 @@
       });
     }
 
-    // Dynamic Typing Effect
+    // --- ADVANCED TYPING EFFECT ---
     const dynamicText = document.getElementById('dynamic-text');
+    const typingCursor = document.getElementById('typing-cursor');
     const words = ["Web Developer", "Freelancer", "Frontend Engineer"];
     let wordIndex = 0;
-    if (dynamicText) {
-      setInterval(() => {
-        wordIndex = (wordIndex + 1) % words.length;
-        dynamicText.textContent = words[wordIndex];
-      }, 2000);
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingDelay = 100;
+    let erasingDelay = 60;
+    let newWordDelay = 1200;
+
+    function type() {
+      if (!dynamicText) return;
+      const currentWord = words[wordIndex];
+      if (!isDeleting) {
+        dynamicText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex < currentWord.length) {
+          setTimeout(type, typingDelay);
+        } else {
+          isDeleting = true;
+          setTimeout(type, newWordDelay);
+        }
+      } else {
+        dynamicText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex > 0) {
+          setTimeout(type, erasingDelay);
+        } else {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          setTimeout(type, typingDelay);
+        }
+      }
+    }
+    if (dynamicText && typingCursor) {
+      setTimeout(type, 800);
     }
 
     // Hamburger Menu Toggle
